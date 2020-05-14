@@ -1,0 +1,57 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres:9.6.2
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+    volumes:
+      - "dbdata:/var/lib/postgresql/data"
+    ports:
+      - "5432:5432"
+
+  initdb:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    depends_on:
+      - postgres
+    volumes:
+      - ../airflow.cfg:/usr/local/airflow/airflow.cfg
+      - ../variables:/usr/local/airflow/variables
+    command:
+      - /bin/bash
+      - -c
+      - |
+        airflow initdb
+        if [[ -e /usr/local/airflow/variables/dev/all.json ]]; then
+            airflow variables -i /usr/local/airflow/variables/dev/all.json
+        fi
+        # Enable this if you choose to have RBAC UI activated in the webserver
+        # airflow create_user -r Admin -u airflow -e airflow@airflow.com -f Air -l Flow -p airflow
+
+  webserver:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    restart: always
+    depends_on:
+      - initdb
+    volumes:
+      - ../airflow.cfg:/usr/local/airflow/airflow.cfg
+      - ../dags:/usr/local/airflow/dags
+      - ../plugins:/usr/local/airflow/plugins
+      - ./spark-conf:/spark-conf
+    ports:
+      - "8080:8080"
+      - "4040:4040"
+    command: webserver
+    healthcheck:
+      test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
+volumes:
+  dbdata:

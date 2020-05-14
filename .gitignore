@@ -1,0 +1,19 @@
+/archive
+*/__pycache__
+*.pyc
+.DS_Store
+
+dags/utils/__pycache__/__init__.cpython-37.pyc
+dags/utils/__pycache__/db_config.cpython-37.pyc
+dags/utils/__pycache__/*
+.idea/
+
+dist/
+*.retry
+
+.venv
+.env*
+
+# stuffs that airflow output during runtime
+logs/
+unittests.cfg
