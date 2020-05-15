@@ -107,7 +107,7 @@ fernet_key = <YOUR_FERNET_KEY_HERE>
 ```
 
 # Concluding tips
-- If you are only interested in working in your IDE, and you do not need the Airflow `scheduler` or `webserver`, run:
+- If you are only interested in just using your IDE, and you do not need the Airflow `scheduler` or `webserver`, run:
   ```
   docker-compose -f docker/docker-compose.yml up -d initdb
   ```
