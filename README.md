@@ -106,10 +106,31 @@ In `airflow.cfg`, paste it here:
 fernet_key = <YOUR_FERNET_KEY_HERE>
 ```
 
+# Caveats
+- The PyPi packages are installed during build time instead of run time, to minimise the start-up time of our 
+development environment. As a side-effect, if there is any new PyPi packages, the images need to be rebuilt, 
+which you can do by passing the extra `--build` flag:
+  ```
+  docker-compose -f docker/docker-compose up -d --build
+  ```
+- PyCharm cannot recognise custom plugins registered dynamically by Airflow, because IDE does static analysis 
+and the custom plugins are registered dynamically during runtime.
+
+![PyCharm failing to recognise custom plugin](/images/custom_plugin_not_recognised.png) 
+
+- Not related to the build environment, but rather how Airflow works - some of the configs (like `rbac = True`) 
+you change in `airflow.cfg` might not be reflected immediately on runtime, because they are static 
+configurations and are only evaluated once in the startup. To solve that problem, just restart your `webserver`:
+  ```
+  docker-compose -f docker/docker-compose restart airflow_webserver
+  ```
+- Not related to the build environment, but rather how Airflow works - you cannot have a ;
+package/module in `dags/` and `plugins/` with the same name. This will likely give you a `ModuleNotFoundError`
+
 # Concluding tips
 - If you are only interested in just using your IDE, and you do not need the Airflow `scheduler` or `webserver`, run:
   ```
-  docker-compose -f docker/docker-compose.yml up -d initdb
+  docker-compose -f docker/docker-compose.yml up -d airflow_initdb
   ```
 
 - To remove the examples from the Webserver, change the following line in the `airflow.cfg`:

@@ -1,22 +1,22 @@
 version: '3.7'
 services:
-  postgres:
+  airflow_postgres:
     image: postgres:9.6.2
     environment:
       - POSTGRES_USER=airflow
       - POSTGRES_PASSWORD=airflow
       - POSTGRES_DB=airflow
     volumes:
-      - "dbdata:/var/lib/postgresql/data"
+      - "airflow_dbdata:/var/lib/postgresql/data"
     ports:
       - "5432:5432"
 
-  initdb:
+  airflow_initdb:
     build:
       context: ..
       dockerfile: docker/Dockerfile
     depends_on:
-      - postgres
+      - airflow_postgres
     volumes:
       - ../airflow.cfg:/usr/local/airflow/airflow.cfg
       - ../variables:/usr/local/airflow/variables
@@ -31,13 +31,13 @@ services:
         # Enable this if you choose to have RBAC UI activated in the webserver
         # airflow create_user -r Admin -u airflow -e airflow@airflow.com -f Air -l Flow -p airflow
 
-  webserver:
+  airflow_webserver:
     build:
       context: ..
       dockerfile: docker/Dockerfile
     restart: always
     depends_on:
-      - initdb
+      - airflow_initdb
     volumes:
       - ../airflow.cfg:/usr/local/airflow/airflow.cfg
       - ../dags:/usr/local/airflow/dags
@@ -54,4 +54,4 @@ services:
       retries: 3
 
 volumes:
-  dbdata:
+  airflow_dbdata:
