@@ -8,7 +8,7 @@ AIRFLOW_HOME=$(pwd)
 export AIRFLOW_HOME
 export AIRFLOW__CORE__EXECUTOR=SequentialExecutor
 export AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@localhost:5432/airflow
-export AIRFLOW__CORE__FERNET_KEY="<YOUR_FERNET_KEY_HERE>"
+export AIRFLOW__CORE__FERNET_KEY=mkA0ggJccF5BSlGBIY5adyXAyPqpYizW9KhdJFjgdaQ=
 export AIRFLOW__CORE__DAGS_FOLDER=$AIRFLOW_HOME/dags
 export AIRFLOW__CORE__PLUGINS_FOLDER=$AIRFLOW_HOME/plugins
 export AIRFLOW__CORE__BASE_LOG_FOLDER=$AIRFLOW_HOME/logs
