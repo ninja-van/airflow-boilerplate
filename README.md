@@ -61,12 +61,15 @@ playing around with the samples DAGs.
 # Setting up PyCharm
 
 Ensure that your Project Interpreter is pointing to the correct virtual environment.
+
 ![Ensure that your Project Interpreter is pointing to the correct virtual environment](/images/1_python_interpreter.png)
 
 Mark both `dags/` and `plugins/` as source.
+
 ![Mark dags and plugins directories as "Sources Root"](/images/2_mark_as_source.png)
 
 Run `source env.sh` on the terminal and copy the environment variables.
+
 ![Run env.sh and copy the env vars](/images/3_run_env_sh.png)
 
 Add a new Run/Debug Configuration with the following parameters:  
@@ -74,10 +77,12 @@ Add a new Run/Debug Configuration with the following parameters:
 - Script path: `<path_to_your_virtualenv_airflow_binary>`
 - Parameters: `test <dag_id> <task_id> <execution_date>` 
 - Environment variables: `paste your env vars here`
+
 ![Run/debug configurations](/images/4_run_debug_config.png)
 
 Add those environment variables to your test configuration (pytest in my case), so that you can just hit 
 the run/debug button next to your test functions and they will work like a charm.
+
 ![Run/debug configurations](/images/5_pytest_template.png)
 
 # Generating a new fernet key
