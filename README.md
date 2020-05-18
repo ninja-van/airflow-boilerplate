@@ -1,6 +1,8 @@
 # Airflow Boilerplate
 A complete development environment setup for working with Airflow, based on the article (insert link here)
 
+![The overall setup diagram](/images/setup_diagram.png)
+
 This boilerplate has more tools than was discussed in the article. In particular, it has the following things
 that were not discussed in the article:
 - A sample DAG
@@ -49,11 +51,16 @@ tests are ran, too, to make sure that nothing is broken.
 
 # Setting up the Docker environment
 
-Run the whole suit of Airflow components:
+If you want the whole suit of Airflow components to be up and running:
 ```
 docker-compose -f docker/docker-compose.yml up -d
 ```
 This brings up the Airflow `postgres` metadatabase, `scheduler`, and `webserver`.
+
+If you only want the DB to be up because you will mostly work using PyCharm:
+```
+docker-compose -f docker/docker-compose.yml up -d airflow_initdb
+```
 
 To access the `webserver`, once the Docker container is up and healthy, go to `localhost:8080`. You can start
 playing around with the samples DAGs. 
@@ -62,15 +69,15 @@ playing around with the samples DAGs.
 
 Ensure that your Project Interpreter is pointing to the correct virtual environment.
 
-![Ensure that your Project Interpreter is pointing to the correct virtual environment](/images/1_python_interpreter.png)
+![Ensure that your Project Interpreter is pointing to the correct virtual environment](/images/python_interpreter.png)
 
 Mark both `dags/` and `plugins/` as source.
 
-![Mark dags and plugins directories as "Sources Root"](/images/2_mark_as_source.png)
+![Mark dags and plugins directories as "Sources Root"](/images/mark_as_source.png)
 
 Run `source env.sh` on the terminal and copy the environment variables.
 
-![Run env.sh and copy the env vars](/images/3_run_env_sh.png)
+![Run env.sh and copy the env vars](/images/run_env_sh.png)
 
 Add a new Run/Debug Configuration with the following parameters:  
 - Name: `<whatever_you_want>`   
@@ -78,12 +85,12 @@ Add a new Run/Debug Configuration with the following parameters:
 - Parameters: `test <dag_id> <task_id> <execution_date>` 
 - Environment variables: `paste your env vars here`
 
-![Run/debug configurations](/images/4_run_debug_config.png)
+![Run/debug configurations](/images/run_debug_config.png)
 
 Add those environment variables to your test configuration (pytest in my case), so that you can just hit 
 the run/debug button next to your test functions and they will work like a charm.
 
-![Run/debug configurations](/images/5_pytest_template.png)
+![Run/debug configurations](/images/pytest_template.png)
 
 # Generating a new fernet key
 Included in this boilerplate is a pre-generated fernet key. There should not be any security concern here
