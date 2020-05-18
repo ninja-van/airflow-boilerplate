@@ -51,16 +51,16 @@ tests are ran, too, to make sure that nothing is broken.
 
 # Setting up the Docker environment
 
+If you only want the DB to be up because you will mostly work using PyCharm:
+```
+docker-compose -f docker/docker-compose.yml up -d airflow_initdb
+```
+
 If you want the whole suit of Airflow components to be up and running:
 ```
 docker-compose -f docker/docker-compose.yml up -d
 ```
 This brings up the Airflow `postgres` metadatabase, `scheduler`, and `webserver`.
-
-If you only want the DB to be up because you will mostly work using PyCharm:
-```
-docker-compose -f docker/docker-compose.yml up -d airflow_initdb
-```
 
 To access the `webserver`, once the Docker container is up and healthy, go to `localhost:8080`. You can start
 playing around with the samples DAGs. 
