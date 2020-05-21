@@ -1,5 +1,8 @@
 # Airflow Boilerplate
-A complete development environment setup for working with Airflow, based on the article (insert link here)
+A complete development environment setup for working with Airflow, based on the article (insert link here).
+If you are interested in learning about the thoughts and processes behind this setup, do read the article. 
+Otherwise, if you want to get hands-on immediately, you can skip it and just follow the instructions below 
+to get started.
 
 ![The overall setup diagram](/images/setup_diagram.png)
 
@@ -88,7 +91,7 @@ Add a new Run/Debug Configuration with the following parameters:
 ![Run/debug configurations](/images/run_debug_config.png)
 
 Add those environment variables to your test configuration (pytest in my case), so that you can just hit 
-the run/debug button next to your test functions and they will work like a charm.
+the run/debug button next to your test functions.
 
 ![Run/debug configurations](/images/pytest_template.png)
 
@@ -115,8 +118,8 @@ fernet_key = <YOUR_FERNET_KEY_HERE>
 
 # Caveats
 - The PyPi packages are installed during build time instead of run time, to minimise the start-up time of our 
-development environment. As a side-effect, if there is any new PyPi packages, the images need to be rebuilt, 
-which you can do by passing the extra `--build` flag:
+development environment. As a side-effect, if there is any new PyPi packages, the images need to be rebuilt. 
+You can do so by passing the extra `--build` flag:
   ```
   docker-compose -f docker/docker-compose up -d --build
   ```
