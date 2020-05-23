@@ -84,7 +84,7 @@ Run `source env.sh` on the terminal and copy the environment variables.
 
 Add a new Run/Debug Configuration with the following parameters:  
 - Name: `<whatever_you_want>`   
-- Script path: `<path_to_your_virtualenv_airflow_binary>`
+- Script path: `<path_to_your_virtualenv_airflow_executable>`
 - Parameters: `test <dag_id> <task_id> <execution_date>` 
 - Environment variables: `paste your env vars here`
 
