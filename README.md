@@ -121,7 +121,7 @@ fernet_key = <YOUR_FERNET_KEY_HERE>
 development environment. As a side-effect, if there is any new PyPi packages, the images need to be rebuilt. 
 You can do so by passing the extra `--build` flag:
   ```
-  docker-compose -f docker/docker-compose up -d --build
+  docker-compose -f docker/docker-compose.yml up -d --build
   ```
 - PyCharm cannot recognise custom plugins registered dynamically by Airflow, because IDE does static analysis 
 and the custom plugins are registered dynamically during runtime.
