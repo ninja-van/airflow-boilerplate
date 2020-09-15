@@ -132,7 +132,7 @@ and the custom plugins are registered dynamically during runtime.
 you change in `airflow.cfg` might not be reflected immediately on runtime, because they are static 
 configurations and are only evaluated once in the startup. To solve that problem, just restart your `webserver`:
   ```
-  docker-compose -f docker/docker-compose restart airflow_webserver
+  docker-compose -f docker/docker-compose.yml restart airflow_webserver
   ```
 - Not related to the build environment, but rather how Airflow works - you cannot have a ;
 package/module in `dags/` and `plugins/` with the same name. This will likely give you a `ModuleNotFoundError`
