@@ -3,6 +3,6 @@ cryptography==3.3.2
 pandas==1.0.0
 pendulum==1.4.4
 pyarrow==0.16.0
-pyspark==2.4.3
+pyspark==3.2.2
 python-snappy==0.5.4
 werkzeug==0.16.1
